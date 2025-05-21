@@ -8,14 +8,12 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "prod": "NODE_ENV=production node ./dist/server.js",
     "build": "tsc",
-    "postinstall": "prisma generate",
     "deploy": "vercel"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.8.2",
     "@types/express": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.19",
@@ -38,7 +36,6 @@
     "@types/cors": "^2.8.18",
     "@types/nodemailer": "^6.4.17",
     "cookie-parser": "^1.4.7",
-    "prisma": "^6.8.2",
     "typescript": "^5.8.3"
   }
 }
