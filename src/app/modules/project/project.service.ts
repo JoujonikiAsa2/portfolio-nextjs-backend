@@ -1,27 +1,22 @@
 import ApiError from "../../errors/ApiError";
-import prisma from "../../shared/prisma";
 import status from "http-status";
 import { TProject } from "./project.interface";
-
-
+import { Project } from "./project.model";
 
 const create = async (payload: TProject) => {
-  console.log(payload)
-  const project = await prisma.projects.create({
-    data: payload,
+  const project = await Project.create({
+    ...payload,
   });
   return project;
 };
 
-const getAll= async () => {
-  const projects = await prisma.projects.findMany();
+const getAll = async () => {
+  const projects = await Project.find({});
   return projects;
 };
 
-const getSingle= async (id: string) => {
-  const project = await prisma.projects.findUnique({
-    where: { id },
-  });
+const getSingle = async (id: string) => {
+  const project = await Project.findById(id );
 
   if (!project) {
     throw new ApiError(status.NOT_FOUND, "Project not found.");
@@ -30,35 +25,26 @@ const getSingle= async (id: string) => {
   return project;
 };
 
-const update= async (id: string, payload: Partial<TProject>) => {
-  const existingProject = await prisma.projects.findUnique({
-    where: { id },
-  });
+const update = async (id: string, payload: Partial<TProject>) => {
+  const existingProject = await Project.findById(id);
 
   if (!existingProject) {
     throw new ApiError(status.NOT_FOUND, "Project not found.");
   }
 
-  const updatedProject = await prisma.projects.update({
-    where: { id },
-    data: payload,
-  });
+  const updatedProject = await Project.findByIdAndUpdate(id, payload, {new: true});
 
   return updatedProject;
 };
 
 const deleteProject = async (id: string) => {
-  const existingProject = await prisma.projects.findUnique({
-    where: { id },
-  });
+  const existingProject = await Project.findById(id);
 
   if (!existingProject) {
     throw new ApiError(status.NOT_FOUND, "Project not found.");
   }
 
-  await prisma.projects.delete({
-    where: { id },
-  });
+  await Project.findByIdAndDelete(id);
 
   return null;
 };
@@ -68,5 +54,5 @@ export const ProjectServices = {
   getAll,
   getSingle,
   update,
-  deleteProject
+  deleteProject,
 };

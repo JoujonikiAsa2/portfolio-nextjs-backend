@@ -1,26 +1,21 @@
 import ApiError from "../../errors/ApiError";
-import prisma from "../../shared/prisma";
 import status from "http-status";
 import { TBlog } from "./blog.interface";
-import { Prisma } from "../../../../generated/prisma";
+import { User } from "../auth/auth.model";
+import { Blog } from "./blog.model";
 
-const create = async (payload: Omit<TBlog, 'Comment' | 'Reply'>) => {
-  const blog = await prisma.blog.create({
-    data: payload,
-  });
+const create = async (payload: TBlog) => {
+  const blog = await Blog.create({...payload});
   return blog;
 };
 
-
-const getAll= async () => {
-  const blogs = await prisma.blog.findMany();
+const getAll = async () => {
+  const blogs = await Blog.find({});
   return blogs;
 };
 
-const getSingle= async (id: string) => {
-  const blog = await prisma.blog.findUnique({
-    where: { id },
-  });
+const getSingle = async (id: string) => {
+  const blog = await Blog.findById(id);
 
   if (!blog) {
     throw new ApiError(status.NOT_FOUND, "blog not found.");
@@ -29,37 +24,26 @@ const getSingle= async (id: string) => {
   return blog;
 };
 
-
-const update = async (id: string, payload: Prisma.BlogUncheckedUpdateInput) => {
-  const existingblog = await prisma.blog.findUnique({
-    where: { id },
-  });
+const update = async (id: string, payload: Partial<TBlog>) => {
+  const existingblog = await Blog.findById(id);
 
   if (!existingblog) {
     throw new ApiError(status.NOT_FOUND, "blog not found.");
   }
 
-  const updatedblog = await prisma.blog.update({
-    where: { id },
-    data: payload,
-  });
+  const updatedblog = await Blog.findByIdAndUpdate(id, payload, {new: true});
 
   return updatedblog;
 };
 
-
 const deleteBlog = async (id: string) => {
-  const existingblog = await prisma.blog.findUnique({
-    where: { id },
-  });
+  const existingblog = await Blog.findById(id);
 
   if (!existingblog) {
     throw new ApiError(status.NOT_FOUND, "blog not found.");
   }
 
-  await prisma.blog.delete({
-    where: { id },
-  });
+  await Blog.findByIdAndDelete(id);
 
   return null;
 };
@@ -69,5 +53,5 @@ export const BlogServices = {
   getAll,
   getSingle,
   update,
-  deleteBlog
+  deleteBlog,
 };

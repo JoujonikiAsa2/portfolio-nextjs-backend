@@ -3,17 +3,18 @@ import { Secret } from "jsonwebtoken";
 import config from "../../config";
 import ApiError from "../../errors/ApiError";
 import httpStatus from "http-status";
-import prisma from "../../shared/prisma";
 import sendEmail from "./sendEmail";
+import mongoose from "mongoose";
+import { User } from "./auth.model";
+
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  const userData = await prisma.user.findUnique({
-    where: {
-      email: payload.email,
-    },
+  console.log(User.db.collections)
+  const userData = await User.findOne({
+    email: payload.email,
   });
 
-  console.log(userData)
+  console.log(userData);
 
   if (userData === null) {
     throw new Error("No user found");
@@ -57,10 +58,8 @@ const refreshToken = async (token: string) => {
     throw new Error("You are not authorized!");
   }
 
-  const userData = await prisma.user.findUnique({
-    where: {
-      email: decodedData?.email,
-    },
+  const userData = await User.findOne({
+    email: decodedData.email,
   });
 
   if (userData === null) {
@@ -83,10 +82,8 @@ const refreshToken = async (token: string) => {
 
 const changePassword = async (user: any, payload: any) => {
   console.log(user);
-  const userData = await prisma.user.findUnique({
-    where: {
-      email: user.email,
-    },
+  const userData = await User.findOne({
+    email: user.email,
   });
 
   if (!userData) {
@@ -99,24 +96,18 @@ const changePassword = async (user: any, payload: any) => {
     throw new Error("Password is incorrect");
   }
 
-
-  await prisma.user.update({
-    where: {
-      email: user.email,
-    },
-    data: {
-      password: payload.password,
-    },
-  });
+  await User.findOneAndUpdate(
+    { email: payload.email },
+    { password: payload.password },
+    { new: true }
+  );
 
   return { message: "Password changed successfully!" };
 };
 
 const forgetPassword = async (payload: { email: string }) => {
-  const userData = await prisma.user.findUnique({
-    where: {
-      email: payload.email,
-    },
+  const userData = await User.findOne({
+    email: payload.email,
   });
 
   const resetPasswordToken = await jwtHelpers.generateToken(
@@ -151,11 +142,10 @@ const resetPassword = async (
   token: string,
   payload: { email: string; password: string }
 ) => {
-  const userData = await prisma.user.findUnique({
-    where: {
-      id: payload.email,
-    },
+  const userData = await User.findOne({
+    email: payload.email,
   });
+
   if (userData === null) {
     throw new ApiError(httpStatus.FORBIDDEN, "Invalid User");
   }
@@ -168,21 +158,17 @@ const resetPassword = async (
     throw new ApiError(httpStatus.FORBIDDEN, "Invalid token");
   }
 
-   const isPasswordMatched = payload.password === userData.password;
+  const isPasswordMatched = payload.password === userData.password;
 
   if (!isPasswordMatched) {
     throw new Error("Password is incorrect");
   }
 
-
-  await prisma.user.update({
-    where: {
-      id: payload.email,
-    },
-    data: {
-      password: payload.password
-    },
-  });
+  await User.findOneAndUpdate(
+    { email: payload.email },
+    { password: payload.password },
+    { new: true }
+  );
 };
 
 export const AuthServices = {
