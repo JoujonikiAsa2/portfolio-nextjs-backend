@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const auth_route_1 = require("../modules/auth/auth.route");
 const project_route_1 = require("../modules/project/project.route");
 const blog_route_1 = require("../modules/blog/blog.route");
+const skill_route_1 = require("../modules/skill/skill.route");
+const profile_route_1 = require("../modules/profile/profile.route");
 const router = express_1.default.Router();
 const moduleRoutes = [
     {
@@ -20,6 +22,14 @@ const moduleRoutes = [
     {
         path: "/blog",
         route: blog_route_1.BlogRoutes,
+    },
+    {
+        path: "/profile",
+        route: profile_route_1.ProfileRoutes,
+    },
+    {
+        path: "/skill",
+        route: skill_route_1.SkillRoutes,
     }
 ];
 moduleRoutes.forEach(({ path, route }) => router.use(path, route));
