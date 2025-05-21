@@ -8,6 +8,7 @@ const skillSchema = new Schema<TSkill>(
     id: { type: String },
     name: { type: String },
     icon: { type: String },
+    skillType: {type: String}
   },
   { timestamps: true }
 );
