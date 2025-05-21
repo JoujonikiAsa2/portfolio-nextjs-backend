@@ -9,7 +9,7 @@ const auth_1 = __importDefault(require("../../middlewares/auth"));
 const blog_controller_1 = require("./blog.controller");
 const router = express_1.default.Router();
 router.post("/", (0, auth_1.default)("ADMIN"), blog_controller_1.BlogControllers.createBlog);
-router.get("/", blog_controller_1.BlogControllers.createBlog);
+router.get("/", blog_controller_1.BlogControllers.getAllBlogs);
 router.get("/:id", blog_controller_1.BlogControllers.getSingleBlog);
 router.patch("/:id", (0, auth_1.default)("ADMIN"), blog_controller_1.BlogControllers.updateBlog);
 router.delete("/:id", (0, auth_1.default)("ADMIN"), blog_controller_1.BlogControllers.deleteBlog);

@@ -14,51 +14,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectServices = void 0;
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
-const prisma_1 = __importDefault(require("../../shared/prisma"));
 const http_status_1 = __importDefault(require("http-status"));
+const project_model_1 = require("./project.model");
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payload);
-    const project = yield prisma_1.default.projects.create({
-        data: payload,
-    });
+    const project = yield project_model_1.Project.create(Object.assign({}, payload));
     return project;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const projects = yield prisma_1.default.projects.findMany();
+    const projects = yield project_model_1.Project.find({});
     return projects;
 });
 const getSingle = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const project = yield prisma_1.default.projects.findUnique({
-        where: { id },
-    });
+    const project = yield project_model_1.Project.findById(id);
     if (!project) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Project not found.");
     }
     return project;
 });
 const update = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingProject = yield prisma_1.default.projects.findUnique({
-        where: { id },
-    });
+    const existingProject = yield project_model_1.Project.findById(id);
     if (!existingProject) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Project not found.");
     }
-    const updatedProject = yield prisma_1.default.projects.update({
-        where: { id },
-        data: payload,
-    });
+    const updatedProject = yield project_model_1.Project.findByIdAndUpdate(id, payload, { new: true });
     return updatedProject;
 });
 const deleteProject = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingProject = yield prisma_1.default.projects.findUnique({
-        where: { id },
-    });
+    const existingProject = yield project_model_1.Project.findById(id);
     if (!existingProject) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Project not found.");
     }
-    yield prisma_1.default.projects.delete({
-        where: { id },
-    });
+    yield project_model_1.Project.findByIdAndDelete(id);
     return null;
 });
 exports.ProjectServices = {
@@ -66,5 +52,5 @@ exports.ProjectServices = {
     getAll,
     getSingle,
     update,
-    deleteProject
+    deleteProject,
 };

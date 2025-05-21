@@ -14,50 +14,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogServices = void 0;
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
-const prisma_1 = __importDefault(require("../../shared/prisma"));
 const http_status_1 = __importDefault(require("http-status"));
+const blog_model_1 = require("./blog.model");
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const blog = yield prisma_1.default.blog.create({
-        data: payload,
-    });
+    const blog = yield blog_model_1.Blog.create(Object.assign({}, payload));
     return blog;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const blogs = yield prisma_1.default.blog.findMany();
+    const blogs = yield blog_model_1.Blog.find({});
     return blogs;
 });
 const getSingle = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const blog = yield prisma_1.default.blog.findUnique({
-        where: { id },
-    });
+    const blog = yield blog_model_1.Blog.findById(id);
     if (!blog) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "blog not found.");
     }
     return blog;
 });
 const update = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingblog = yield prisma_1.default.blog.findUnique({
-        where: { id },
-    });
+    const existingblog = yield blog_model_1.Blog.findById(id);
     if (!existingblog) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "blog not found.");
     }
-    const updatedblog = yield prisma_1.default.blog.update({
-        where: { id },
-        data: payload,
-    });
+    const updatedblog = yield blog_model_1.Blog.findByIdAndUpdate(id, payload, { new: true });
     return updatedblog;
 });
 const deleteBlog = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const existingblog = yield prisma_1.default.blog.findUnique({
-        where: { id },
-    });
+    const existingblog = yield blog_model_1.Blog.findById(id);
     if (!existingblog) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "blog not found.");
     }
-    yield prisma_1.default.blog.delete({
-        where: { id },
-    });
+    yield blog_model_1.Blog.findByIdAndDelete(id);
     return null;
 });
 exports.BlogServices = {
@@ -65,5 +52,5 @@ exports.BlogServices = {
     getAll,
     getSingle,
     update,
-    deleteBlog
+    deleteBlog,
 };
