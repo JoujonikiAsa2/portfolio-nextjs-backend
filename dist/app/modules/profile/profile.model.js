@@ -7,6 +7,6 @@ const profileSchema = new mongoose_1.Schema({
     resume: {
         type: String,
     },
-    image: { type: String },
+    thumbnail: { type: String },
 }, { timestamps: true });
 exports.Profile = (0, mongoose_1.model)("Profile", profileSchema);

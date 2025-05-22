@@ -3,8 +3,8 @@ import mongoose, { Schema, model } from "mongoose";
 import { TProject } from "./project.interface";
 
 const projectSchema = new Schema<TProject>({
-  thumbnails: {
-    type: [String],
+  thumbnail: {
+    type: String,
     required: true,
   },
   description: {

@@ -18,10 +18,12 @@ exports.default = {
         reset_token_secret: process.env.JWT_RESET_TOKEN_SECRET,
         reset_token_expires_in: process.env.JWT_RESET_TOKEN_EXPIRES_IN,
     },
+    cloudinary: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+    },
     reset_password_url: process.env.RESET_PASSWORD_LINK,
     nodemailer_email: process.env.NODEMAILER_EMAIL,
     nodemailer_password: process.env.NODEMAILER_PASSWORD,
-    cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
-    cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
 };

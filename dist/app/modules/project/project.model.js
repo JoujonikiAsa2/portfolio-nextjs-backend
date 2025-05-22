@@ -4,8 +4,8 @@ exports.Project = void 0;
 // src/models/project.model.ts
 const mongoose_1 = require("mongoose");
 const projectSchema = new mongoose_1.Schema({
-    thumbnails: {
-        type: [String],
+    thumbnail: {
+        type: String,
         required: true,
     },
     description: {

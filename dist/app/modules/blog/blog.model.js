@@ -28,8 +28,8 @@ const blogSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    images: {
-        type: [String],
+    thumbnail: {
+        type: String,
     }
 }, { timestamps: true });
 exports.Blog = (0, mongoose_1.model)('Blog', blogSchema);

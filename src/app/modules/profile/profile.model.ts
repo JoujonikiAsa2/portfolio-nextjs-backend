@@ -8,7 +8,7 @@ const profileSchema = new Schema<TProfile>(
     resume: {
       type: String,
     },
-    image: { type: String },
+    thumbnail: { type: String },
   },
   { timestamps: true }
 );

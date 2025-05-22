@@ -28,8 +28,8 @@ const blogSchema = new Schema<TBlog>({
     type: String,
     required: true,
   },
-  images: {
-    type: [String],
+  thumbnail: {
+    type: String,
   }
 }, { timestamps: true });
 

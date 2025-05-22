@@ -5,7 +5,7 @@ import { Project } from "./project.model";
 
 const create = async (payload: TProject) => {
   const project = await Project.create({
-    ...payload,
+    ...payload, 
   });
   return project;
 };
