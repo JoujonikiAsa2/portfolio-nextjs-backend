@@ -4,6 +4,10 @@ import { TSkill } from "./skill.interface";
 import { Skill } from "./skill.model";
 
 const create = async (payload: TSkill) => {
+  const isSKillExist = await Skill.findOne({name: payload.name})
+  if(isSKillExist){
+    throw new ApiError(status.BAD_REQUEST, "Already exist")
+  }
   const skill = await Skill.create({ ...payload });
   return skill;
 };

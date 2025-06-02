@@ -33,7 +33,7 @@ const update = async (id: string, payload: Partial<TProject>) => {
   }
 
   const updatedProject = await Project.findByIdAndUpdate(id, payload, {new: true});
-
+console.log(updatedProject)
   return updatedProject;
 };
 

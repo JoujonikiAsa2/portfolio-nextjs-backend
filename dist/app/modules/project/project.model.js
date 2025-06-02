@@ -4,18 +4,25 @@ exports.Project = void 0;
 // src/models/project.model.ts
 const mongoose_1 = require("mongoose");
 const projectSchema = new mongoose_1.Schema({
+    title: {
+        type: String,
+    },
+    duration: { type: String },
+    team: { type: String },
+    category: { type: String },
+    status: { type: String },
+    features: { type: [String] },
+    challenges: { type: [String] },
+    gallery: { type: [String] },
     thumbnail: {
         type: String,
-        required: true,
     },
     description: {
         type: String,
-        required: true,
         trim: true,
     },
     techStack: {
         type: [String],
-        required: true,
     },
     frontendLivelink: {
         type: String,
@@ -37,9 +44,5 @@ const projectSchema = new mongoose_1.Schema({
         type: String,
         trim: true,
     },
-    problemFaced: {
-        type: String,
-        trim: true,
-    },
 });
-exports.Project = (0, mongoose_1.model)('Project', projectSchema);
+exports.Project = (0, mongoose_1.model)("Project", projectSchema);

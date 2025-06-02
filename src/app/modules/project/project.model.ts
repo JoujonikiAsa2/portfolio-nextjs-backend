@@ -3,18 +3,25 @@ import mongoose, { Schema, model } from "mongoose";
 import { TProject } from "./project.interface";
 
 const projectSchema = new Schema<TProject>({
+  title: {
+    type: String,
+  },
+  duration: { type: String },
+  team: { type: String },
+  category: { type: String },
+  status: { type: String },
+  features: { type: [String] },
+  challenges: { type: [String] },
+  gallery: { type: [String] },
   thumbnail: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
-    required: true,
     trim: true,
   },
   techStack: {
     type: [String],
-    required: true,
   },
   frontendLivelink: {
     type: String,
@@ -36,10 +43,6 @@ const projectSchema = new Schema<TProject>({
     type: String,
     trim: true,
   },
-  problemFaced: {
-    type: String,
-    trim: true,
-  },
 });
 
-export const Project = model<TProject>('Project', projectSchema);
+export const Project = model<TProject>("Project", projectSchema);

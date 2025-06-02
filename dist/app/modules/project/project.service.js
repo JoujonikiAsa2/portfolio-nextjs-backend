@@ -37,6 +37,7 @@ const update = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Project not found.");
     }
     const updatedProject = yield project_model_1.Project.findByIdAndUpdate(id, payload, { new: true });
+    console.log(updatedProject);
     return updatedProject;
 });
 const deleteProject = (id) => __awaiter(void 0, void 0, void 0, function* () {

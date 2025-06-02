@@ -17,6 +17,10 @@ const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const http_status_1 = __importDefault(require("http-status"));
 const skill_model_1 = require("./skill.model");
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const isSKillExist = yield skill_model_1.Skill.findOne({ name: payload.name });
+    if (isSKillExist) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Already exist");
+    }
     const skill = yield skill_model_1.Skill.create(Object.assign({}, payload));
     return skill;
 });
