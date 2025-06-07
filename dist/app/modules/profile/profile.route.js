@@ -15,4 +15,5 @@ router.get("/", profile_controller_1.ProfileControllers.getAllProfiles);
 router.get("/:id", profile_controller_1.ProfileControllers.getSingleProfile);
 router.patch("/:id", (0, auth_1.default)("ADMIN"), UploadImageInServer_1.UploadImageInServer.single("file"), CloudinaryUpload_1.UploadToCloudinary, profile_controller_1.ProfileControllers.updateProfile);
 router.delete("/:id", (0, auth_1.default)("ADMIN"), profile_controller_1.ProfileControllers.deleteProfile);
+router.put("/:id", profile_controller_1.ProfileControllers.downloadResumeClickedCount);
 exports.ProfileRoutes = router;

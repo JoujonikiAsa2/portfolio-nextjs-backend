@@ -49,10 +49,21 @@ const deleteprofile = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield profile_model_1.Profile.findByIdAndDelete(id);
     return null;
 });
+const downloadResumeClickedCount = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingProfile = yield profile_model_1.Profile.findById(id);
+    if (!existingProfile) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "Profile not found.");
+    }
+    const updatedCount = yield profile_model_1.Profile.findByIdAndUpdate(id, { clickedCount: (existingProfile === null || existingProfile === void 0 ? void 0 : existingProfile.clickedCount) + 1 }, {
+        new: true,
+    });
+    return updatedCount;
+});
 exports.ProfileServices = {
     create,
     getAll,
     getSingle,
     update,
     deleteprofile,
+    downloadResumeClickedCount
 };

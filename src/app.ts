@@ -6,7 +6,7 @@ import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
 import { notFoundErrorHandler } from './app/middlewares/notFoundErrorHandler';
 
 const app:Application = express();
-app.use(cors());
+app.use(cors({origin:['http://localhost:3000','https://joujoniki-portfolio.vercel.app/']}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
