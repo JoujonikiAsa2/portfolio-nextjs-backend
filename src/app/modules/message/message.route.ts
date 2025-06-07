@@ -7,4 +7,8 @@ router.post(
   "/",
   MessageControllers.sendMessage
 );
+router.get(
+  "/",
+  MessageControllers.getMessage
+);
 export const MessageRoutes = router;
