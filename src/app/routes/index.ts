@@ -4,6 +4,7 @@ import { ProjectRoutes } from "../modules/project/project.route";
 import { BlogRoutes } from "../modules/blog/blog.route";
 import { SkillRoutes } from "../modules/skill/skill.route";
 import { ProfileRoutes } from "../modules/profile/profile.route";
+import { MessageRoutes } from "../modules/message/message.route";
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: "/skill",
     route: SkillRoutes,
+  },
+  {
+    path: "/message",
+    route: MessageRoutes,
   }
 ];
 

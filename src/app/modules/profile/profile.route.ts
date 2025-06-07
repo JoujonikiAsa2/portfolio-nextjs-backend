@@ -23,5 +23,6 @@ router.patch(
   ProfileControllers.updateProfile
 );
 router.delete("/:id", auth("ADMIN"), ProfileControllers.deleteProfile);
+router.put("/:id", ProfileControllers.downloadResumeClickedCount);
 
 export const ProfileRoutes = router;

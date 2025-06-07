@@ -49,10 +49,27 @@ const deleteprofile = async (id: string) => {
   return null;
 };
 
+const downloadResumeClickedCount = async (id: string) => {
+  const existingProfile = await Profile.findById(id);
+
+  if (!existingProfile) {
+    throw new ApiError(status.NOT_FOUND, "Profile not found.");
+  }
+  const updatedCount = await Profile.findByIdAndUpdate(
+    id,
+    { clickedCount: existingProfile?.clickedCount + 1 },
+    {
+      new: true,
+    }
+  );
+  return updatedCount
+};
+
 export const ProfileServices = {
   create,
   getAll,
   getSingle,
   update,
   deleteprofile,
+  downloadResumeClickedCount
 };

@@ -56,10 +56,22 @@ const deleteProfile = catchAsync(async (req, res) => {
   });
 });
 
+const downloadResumeClickedCount = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await ProfileServices.downloadResumeClickedCount(id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Resume download count successfully!",
+    data: result,
+  });
+});
+
 export const ProfileControllers = {
   createProfile,
   getAllProfiles,
   getSingleProfile,
   updateProfile,
   deleteProfile,
+  downloadResumeClickedCount
 };
