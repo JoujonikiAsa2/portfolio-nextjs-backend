@@ -8,6 +8,15 @@ const getMessage = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
+    message: "Messages retrieved successfully",
+    data: result,
+  });
+});
+const getMessageById = catchAsync(async (req, res) => {
+  const result = await MessageServices.getMessageByIdFromDB(req.params.id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
     message: "Message retrieved successfully",
     data: result,
   });
@@ -24,5 +33,6 @@ const sendMessage = catchAsync(async (req, res) => {
 
 export const MessageControllers = {
   getMessage,
+  getMessageById,
   sendMessage,
 };

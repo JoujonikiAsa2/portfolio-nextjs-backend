@@ -17,15 +17,35 @@ const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = require("../../shared/catchAsync");
 const sendResponse_1 = require("../../shared/sendResponse");
 const message_service_1 = require("./message.service");
+const getMessage = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield message_service_1.MessageServices.getMessagesFromDB();
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Messages retrieved successfully",
+        data: result,
+    });
+}));
+const getMessageById = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield message_service_1.MessageServices.getMessageByIdFromDB(req.params.id);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Message retrieved successfully",
+        data: result,
+    });
+}));
 const sendMessage = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield message_service_1.MessageServices.sendMessageIntoDB(req.body);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: http_status_1.default.CREATED,
         success: true,
-        message: "Message send successfully!",
-        data: result
+        message: "Message send successfully",
+        data: result,
     });
 }));
 exports.MessageControllers = {
-    sendMessage
+    getMessage,
+    getMessageById,
+    sendMessage,
 };

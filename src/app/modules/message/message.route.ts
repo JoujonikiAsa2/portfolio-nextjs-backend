@@ -13,4 +13,9 @@ router.get(
     auth("ADMIN"),
   MessageControllers.getMessage
 );
+router.get(
+  "/:id",
+    auth("ADMIN"),
+  MessageControllers.getMessageById
+);
 export const MessageRoutes = router;

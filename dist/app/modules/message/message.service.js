@@ -11,10 +11,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageServices = void 0;
 const message_model_1 = require("./message.model");
+const getMessagesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield message_model_1.Message.find({});
+    return result;
+});
+const getMessageByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield message_model_1.Message.findById(id);
+    return result;
+});
 const sendMessageIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield message_model_1.Message.create(Object.assign({}, payload));
     return null;
 });
 exports.MessageServices = {
+    getMessagesFromDB,
+    getMessageByIdFromDB,
     sendMessageIntoDB,
 };
