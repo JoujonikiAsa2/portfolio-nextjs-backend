@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageServices = void 0;
 const message_model_1 = require("./message.model");
 const getMessagesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield message_model_1.Message.find({});
+    const result = yield message_model_1.Message.find({}).sort({ createdAt: -1 });
     return result;
 });
 const getMessageByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {

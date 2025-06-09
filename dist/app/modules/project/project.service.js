@@ -21,7 +21,7 @@ const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     return project;
 });
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    const projects = yield project_model_1.Project.find({});
+    const projects = yield project_model_1.Project.find({}).sort({ createdAt: -1 });
     return projects;
 });
 const getSingle = (id) => __awaiter(void 0, void 0, void 0, function* () {

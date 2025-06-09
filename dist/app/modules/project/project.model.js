@@ -44,5 +44,7 @@ const projectSchema = new mongoose_1.Schema({
         type: String,
         trim: true,
     },
+}, {
+    timestamps: true,
 });
 exports.Project = (0, mongoose_1.model)("Project", projectSchema);

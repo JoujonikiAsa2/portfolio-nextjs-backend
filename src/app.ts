@@ -4,8 +4,11 @@ import cookieParser from 'cookie-parser'
 import router from './app/routes';
 import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
 import { notFoundErrorHandler } from './app/middlewares/notFoundErrorHandler';
+import bodyParser from 'body-parser'
 
 const app:Application = express();
+app.use(bodyParser.json({ limit: '100000kb' }));
+
 app.use(cors({origin:['http://localhost:3000','https://joujoniki-portfolio.vercel.app/']}));
 app.use(express.json());
 app.use(cookieParser());
