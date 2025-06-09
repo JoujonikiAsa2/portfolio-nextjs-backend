@@ -11,6 +11,7 @@ const profileSchema = new Schema<TProfile>(
     thumbnail: { type: String },
     clickedCount: {
       type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

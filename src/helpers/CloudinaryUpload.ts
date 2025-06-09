@@ -6,7 +6,7 @@ import config from "../app/config";
 cloudinary.config({
   cloud_name: config.cloudinary.cloud_name,
   api_key: config.cloudinary.api_key,
-  api_secret: config.cloudinary.api_secret, // Click 'View API Keys' above to copy your API secret
+  api_secret: config.cloudinary.api_secret, 
 });
 
 export const UploadToCloudinary: RequestHandler = async function (
@@ -14,7 +14,6 @@ export const UploadToCloudinary: RequestHandler = async function (
   res,
   next
 ) {
-  // console.log({ body: req.body, file: req.file });
   const buffer = req.file?.buffer!;
   if (req.body.data) {
     req.body = JSON.parse(req.body.data);
@@ -36,7 +35,6 @@ export const UploadToCloudinary: RequestHandler = async function (
         }
       );
       const stream = Readable.from(buffer).pipe(theTransformStream);
-      // console.log("body", req.body);
     } else {
       next();
     }

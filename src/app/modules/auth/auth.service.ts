@@ -9,12 +9,9 @@ import { User } from "./auth.model";
 
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  console.log(User.db.collections)
   const userData = await User.findOne({
     email: payload.email,
   });
-
-  console.log(userData);
 
   if (userData === null) {
     throw new Error("No user found");
@@ -81,7 +78,6 @@ const refreshToken = async (token: string) => {
 };
 
 const changePassword = async (user: any, payload: any) => {
-  console.log(user);
   const userData = await User.findOne({
     email: user.email,
   });
@@ -120,7 +116,6 @@ const forgetPassword = async (payload: { email: string }) => {
   );
 
   const resetPasswordLink = `${config.reset_password_url}?id=${userData?.id}&token=${resetPasswordToken}`;
-  console.log(resetPasswordLink);
 
   await sendEmail(
     userData?.email as string,
