@@ -20,11 +20,9 @@ const http_status_1 = __importDefault(require("http-status"));
 const sendEmail_1 = __importDefault(require("./sendEmail"));
 const auth_model_1 = require("./auth.model");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(auth_model_1.User.db.collections);
     const userData = yield auth_model_1.User.findOne({
         email: payload.email,
     });
-    console.log(userData);
     if (userData === null) {
         throw new Error("No user found");
     }
@@ -68,7 +66,6 @@ const refreshToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 const changePassword = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(user);
     const userData = yield auth_model_1.User.findOne({
         email: user.email,
     });
@@ -91,7 +88,6 @@ const forgetPassword = (payload) => __awaiter(void 0, void 0, void 0, function* 
         role: userData === null || userData === void 0 ? void 0 : userData.role,
     }, config_1.default.jwt.reset_token_secret, config_1.default.jwt.reset_token_expires_in);
     const resetPasswordLink = `${config_1.default.reset_password_url}?id=${userData === null || userData === void 0 ? void 0 : userData.id}&token=${resetPasswordToken}`;
-    console.log(resetPasswordLink);
     yield (0, sendEmail_1.default)(userData === null || userData === void 0 ? void 0 : userData.email, `
     <div>
     <p>Dear,</p>

@@ -10,6 +10,7 @@ const profileSchema = new mongoose_1.Schema({
     thumbnail: { type: String },
     clickedCount: {
         type: Number,
+        default: 0,
     },
 }, { timestamps: true });
 exports.Profile = (0, mongoose_1.model)("Profile", profileSchema);

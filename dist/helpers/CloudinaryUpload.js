@@ -19,12 +19,11 @@ const config_1 = __importDefault(require("../app/config"));
 cloudinary_1.v2.config({
     cloud_name: config_1.default.cloudinary.cloud_name,
     api_key: config_1.default.cloudinary.api_key,
-    api_secret: config_1.default.cloudinary.api_secret, // Click 'View API Keys' above to copy your API secret
+    api_secret: config_1.default.cloudinary.api_secret,
 });
 const UploadToCloudinary = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
-        // console.log({ body: req.body, file: req.file });
         const buffer = (_a = req.file) === null || _a === void 0 ? void 0 : _a.buffer;
         if (req.body.data) {
             req.body = JSON.parse(req.body.data);
@@ -44,7 +43,6 @@ const UploadToCloudinary = function (req, res, next) {
                     }
                 });
                 const stream = stream_1.Readable.from(buffer).pipe(theTransformStream);
-                // console.log("body", req.body);
             }
             else {
                 next();
